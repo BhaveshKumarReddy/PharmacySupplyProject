@@ -27,11 +27,20 @@ namespace PharmacySupplyProject.Models
 
             modelBuilder.Entity<RepresentativeSchedule>().HasKey(x => new { x.RepresentativeName, x.DoctorName });
 
+            modelBuilder.Entity<PharmaryMedicineSupply>().HasKey(x => new { x.PharmacyName, x.MedicineName });
+
+            modelBuilder.Entity<Manager>(entity =>
+            {
+                entity.HasIndex(u => u.Email).IsUnique();
+            });
+
         }
 
         public virtual DbSet<MedicineStock> MedicineStocks { get; set;}
         public virtual DbSet<MedicalRepresentative> MedicalRepresentatives { get; set;}
         public virtual DbSet<RepresentativeSchedule> RepresentativeSchedules { get; set; }
+        public virtual DbSet<Manager> Managers { get; set; }
+        public virtual DbSet<PharmaryMedicineSupply> PharmacyMedicineSupplies { get; set; }
 
 
     }
