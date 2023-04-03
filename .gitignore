@@ -3,6 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+
 # User-specific files
 *.rsuser
 *.suo
@@ -17,6 +18,7 @@
 mono_crash.*
 
 # Build results
+Migrations/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
@@ -349,6 +351,7 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+
 
 # BeatPulse healthcheck temp database
 healthchecksdb

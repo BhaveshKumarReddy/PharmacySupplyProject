@@ -4,8 +4,10 @@ namespace PharmacySupplyProject.Models
 {
     public class Pharmacy
     {
+        public int Id { get; set; }
+
         [Key]
-        public int Id { get; set; } 
         public string Name { get; set; }=string.Empty;
+
     }
 }

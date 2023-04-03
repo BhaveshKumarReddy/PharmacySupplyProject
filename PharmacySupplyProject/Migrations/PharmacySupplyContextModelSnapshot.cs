@@ -35,6 +35,9 @@ namespace PharmacySupplyProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("salt")
+                        .HasColumnType("varbinary(max)");
+
                     b.HasKey("Name");
 
                     b.HasIndex("Email")
@@ -67,6 +70,19 @@ namespace PharmacySupplyProject.Migrations
                     b.ToTable("MedicalRepresentatives");
                 });
 
+            modelBuilder.Entity("PharmacySupplyProject.Models.MedicineDemand", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("DemandCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("MedicineDemands");
+                });
+
             modelBuilder.Entity("PharmacySupplyProject.Models.MedicineStock", b =>
                 {
                     b.Property<string>("Name")
@@ -97,7 +113,20 @@ namespace PharmacySupplyProject.Migrations
                     b.ToTable("MedicineStocks");
                 });
 
-            modelBuilder.Entity("PharmacySupplyProject.Models.PharmaryMedicineSupply", b =>
+            modelBuilder.Entity("PharmacySupplyProject.Models.Pharmacy", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("Pharmacies");
+                });
+
+            modelBuilder.Entity("PharmacySupplyProject.Models.PharmacyMedicineSupply", b =>
                 {
                     b.Property<string>("PharmacyName")
                         .HasColumnType("nvarchar(450)");
@@ -109,6 +138,8 @@ namespace PharmacySupplyProject.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("PharmacyName", "MedicineName");
+
+                    b.HasIndex("MedicineName");
 
                     b.ToTable("PharmacyMedicineSupplies");
                 });
@@ -143,6 +174,25 @@ namespace PharmacySupplyProject.Migrations
                     b.HasKey("RepresentativeName", "DoctorName");
 
                     b.ToTable("RepresentativeSchedules");
+                });
+
+            modelBuilder.Entity("PharmacySupplyProject.Models.PharmacyMedicineSupply", b =>
+                {
+                    b.HasOne("PharmacySupplyProject.Models.MedicineDemand", "Medicine")
+                        .WithMany()
+                        .HasForeignKey("MedicineName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PharmacySupplyProject.Models.Pharmacy", "Pharmacy")
+                        .WithMany()
+                        .HasForeignKey("PharmacyName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Medicine");
+
+                    b.Navigation("Pharmacy");
                 });
 #pragma warning restore 612, 618
         }
